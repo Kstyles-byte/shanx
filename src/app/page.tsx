@@ -70,7 +70,7 @@ const tools = ["OpenToonz", "ToonBoom", "Krita", "SketchBook Pro"];
 
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -104,8 +104,20 @@ export default function Home() {
     }
   };
 
+  // Close modal with Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveProject(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <main className="flex-1 bg-[#111111] text-[#E5E5E5] selection:bg-[#E5E5E5] selection:text-[#111111]">
+      {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-12 max-w-7xl mx-auto">
         <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter mb-6 uppercase">
           Fortune Chidi
@@ -121,56 +133,119 @@ export default function Home() {
         </button>
       </section>
 
+      {/* Work Gallery */}
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-32">
         <div className="mb-16 border-b border-neutral-800 pb-6 flex justify-between items-end">
           <h2 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
             Selected Works
           </h2>
           <span className="text-[10px] text-neutral-500 uppercase tracking-widest hidden sm:inline">
-            Hover video to play
+            Click card to play
           </span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
-          {projects.map((project) => {
-            const isHovered = hoveredId === project.id;
-            return (
-              <div key={project.id} className="project-card flex flex-col gap-4">
-                <div
-                  onMouseEnter={() => setHoveredId(project.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                  className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl border border-neutral-900 cursor-pointer relative"
-                >
-                  <div className={`absolute inset-0 bg-[#222222] flex items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
-                    <span className="text-xs font-bold tracking-widest text-neutral-600 uppercase">
-                      Hover to View
-                    </span>
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              onClick={() => setActiveProject(project)}
+              className="project-card flex flex-col gap-4 group cursor-pointer"
+            >
+              {/* Premium Brutalist Placeholder Card */}
+              <div className="project-video-container rounded-lg bg-[#1A1A1A] hover:bg-[#222222] transition-colors duration-300 aspect-video shadow-2xl border border-neutral-900 flex flex-col items-center justify-center relative p-8 group-hover:scale-[1.02]">
+                <div className="flex flex-col items-center gap-4 transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-16 h-16 rounded-full bg-neutral-800 flex items-center justify-center text-white border border-neutral-700 transition-all duration-300 group-hover:bg-white group-hover:text-black group-hover:border-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      className="w-6 h-6 translate-x-[2px]"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
                   </div>
-
-                  {isHovered && (
-                    <video
-                      src={project.videoSrc}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="w-full h-full object-cover relative z-10"
-                    />
-                  )}
-                </div>
-                <div className="flex flex-col gap-1 mt-2">
-                  <span className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
-                    Work {project.number}
+                  <span className="text-[11px] font-bold tracking-[0.25em] text-neutral-500 uppercase group-hover:text-neutral-300 transition-colors">
+                    PLAY VIDEO
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
-                    {project.title}
-                  </h3>
                 </div>
               </div>
-            );
-          })}
+              <div className="flex flex-col gap-1 mt-2">
+                <span className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
+                  Work {project.number}
+                </span>
+                <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight group-hover:text-white transition-colors">
+                  {project.title}
+                </h3>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
+      {/* Lightbox / Video Modal */}
+      {activeProject && (
+        <div
+          onClick={() => setActiveProject(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-12 animate-fade-in transition-all duration-300"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-5xl bg-[#161616] rounded-xl overflow-hidden shadow-2xl border border-neutral-800 relative flex flex-col"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setActiveProject(null)}
+              className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-black/60 hover:bg-white hover:text-black text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Video Container inside modal */}
+            <div className="aspect-video w-full bg-black relative">
+              <video
+                key={activeProject.id}
+                src={activeProject.videoSrc}
+                autoPlay
+                controls
+                preload="auto"
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            {/* Metadata Bar */}
+            <div className="p-6 md:p-8 bg-[#1A1A1A] border-t border-neutral-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div>
+                <span className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
+                  Work {activeProject.number}
+                </span>
+                <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight mt-1">
+                  {activeProject.title}
+                </h2>
+              </div>
+              <button
+                onClick={() => setActiveProject(null)}
+                className="text-xs font-bold tracking-widest text-[#E5E5E5] hover:text-white uppercase hover:underline"
+              >
+                Close Player
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Footer / About & Contact */}
       <footer
         id="contact"
         className="bg-[#222222] text-[#E5E5E5] rounded-t-3xl py-24 px-6 md:px-12 border-t border-neutral-800"
