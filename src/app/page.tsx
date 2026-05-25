@@ -73,7 +73,6 @@ export default function Home() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Reveal animation on scroll
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -107,7 +106,6 @@ export default function Home() {
 
   return (
     <main className="flex-1 bg-[#111111] text-[#E5E5E5] selection:bg-[#E5E5E5] selection:text-[#111111]">
-      {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-12 max-w-7xl mx-auto">
         <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter mb-6 uppercase">
           Fortune Chidi
@@ -120,10 +118,9 @@ export default function Home() {
           className="bg-white text-black px-10 py-5 font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer active:translate-y-0"
         >
           Contact Me
-
-      {/* Work Gallery *        </button>
+        </button>
       </section>
-/}
+
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-32">
         <div className="mb-16 border-b border-neutral-800 pb-6 flex justify-between items-end">
           <h2 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
@@ -143,14 +140,12 @@ export default function Home() {
                   onMouseLeave={() => setHoveredId(null)}
                   className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl border border-neutral-900 cursor-pointer relative"
                 >
-                  {/* Visual Placeholder / Static state when not hovered */}
                   <div className={`absolute inset-0 bg-[#222222] flex items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
                     <span className="text-xs font-bold tracking-widest text-neutral-600 uppercase">
                       Hover to View
                     </span>
                   </div>
 
-                  {/* High performance dynamic video loading */}
                   {isHovered && (
                     <video
                       src={project.videoSrc}
@@ -176,13 +171,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer / About & Contact */}
       <footer
         id="contact"
         className="bg-[#222222] text-[#E5E5E5] rounded-t-3xl py-24 px-6 md:px-12 border-t border-neutral-800"
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
-          {/* Bio & Resume */}
           <div className="md:w-1/2 flex flex-col gap-8">
             <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
               ABOUT
@@ -191,7 +184,6 @@ export default function Home() {
               I am a professional 2D animator specializing in high-fidelity character movement, hand-drawn expressions, and dynamic frame-by-frame actions. I focus on creating stories that bridge artistic depth and fluid motion.
             </p>
             
-            {/* Tools of the trade */}
             <div className="flex flex-col gap-3">
               <h3 className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
                 Tools of the Trade
@@ -232,7 +224,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Social Links & Copyright */}
           <div className="md:w-1/3 flex flex-col gap-8">
             <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
               CONNECT
