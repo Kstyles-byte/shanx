@@ -13,38 +13,56 @@ const projects: Project[] = [
   {
     id: "re-awakening",
     number: "01",
-    title: "Re-Awakening",
+    title: "Re-Awakening Action Shot",
     videoSrc: "/portfolio/re-Awakening.mp4",
   },
   {
-    id: "project-3",
+    id: "re-awakening-2",
     number: "02",
-    title: "Project III",
-    videoSrc: "/portfolio/Proj3.mp4",
+    title: "Re-Awakening Secondary Cut",
+    videoSrc: "/portfolio/re-Awakening2.mp4",
   },
   {
-    id: "acting-practice",
+    id: "project-3",
     number: "03",
-    title: "Acting Practice",
-    videoSrc: "/portfolio/acting_practice2cl.mp4",
+    title: "Layout & Animation Study",
+    videoSrc: "/portfolio/Proj3.mp4",
   },
   {
     id: "dog-animation",
     number: "04",
-    title: "Dog Animation",
+    title: "Quadruped Mechanics Study",
     videoSrc: "/portfolio/dog animation.mp4",
   },
   {
     id: "kung-fu-kong",
     number: "05",
-    title: "Kung Fu Kong",
+    title: "Combat Choreography Test",
     videoSrc: "/portfolio/kung fu kong.mp4",
   },
   {
-    id: "new-dawn",
+    id: "acting-practice",
     number: "06",
-    title: "The New Dawn",
+    title: "Character Acting Exercise",
+    videoSrc: "/portfolio/acting_practice2cl.mp4",
+  },
+  {
+    id: "new-dawn",
+    number: "07",
+    title: "Scene Motion Study",
     videoSrc: "/portfolio/New New one.mp4",
+  },
+  {
+    id: "experimental-sketch",
+    number: "08",
+    title: "2D Animation Loop",
+    videoSrc: "/portfolio/1729508798159.mp4",
+  },
+  {
+    id: "screen-capture",
+    number: "09",
+    title: "Production Screen Capture",
+    videoSrc: "/portfolio/Recording 2026-05-14 100846.mp4",
   },
 ];
 
@@ -108,13 +126,13 @@ export default function Home() {
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-32">
         <div className="mb-16 border-b border-neutral-800 pb-6">
           <h2 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
-            Selected Work
+            Selected Works
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
           {projects.map((project) => (
             <div key={project.id} className="project-card flex flex-col gap-4">
-              <div className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl">
+              <div className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl border border-neutral-900">
                 <video
                   autoPlay
                   loop
