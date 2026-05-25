@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Project {
   id: string;
@@ -70,6 +70,7 @@ const tools = ["OpenToonz", "ToonBoom", "Krita", "SketchBook Pro"];
 
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   useEffect(() => {
     // Reveal animation on scroll
@@ -104,20 +105,6 @@ export default function Home() {
     }
   };
 
-  // Hover play control helpers
-  const handleMouseEnter = (e: React.MouseEvent<HTMLVideoElement>) => {
-    const video = e.currentTarget;
-    video.play().catch((err) => {
-      // Catch and ignore autoplay block exceptions
-      console.log("Playback interrupted:", err);
-    });
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLVideoElement>) => {
-    const video = e.currentTarget;
-    video.pause();
-  };
-
   return (
     <main className="flex-1 bg-[#111111] text-[#E5E5E5] selection:bg-[#E5E5E5] selection:text-[#111111]">
       {/* Hero Section */}
@@ -133,10 +120,10 @@ export default function Home() {
           className="bg-white text-black px-10 py-5 font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer active:translate-y-0"
         >
           Contact Me
-        </button>
-      </section>
 
-      {/* Work Gallery */}
+      {/* Work Gallery *        </button>
+      </section>
+/}
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-32">
         <div className="mb-16 border-b border-neutral-800 pb-6 flex justify-between items-end">
           <h2 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
@@ -147,32 +134,45 @@ export default function Home() {
           </span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
-          {projects.map((project) => (
-            <div key={project.id} className="project-card flex flex-col gap-4">
-              <div className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl border border-neutral-900 cursor-pointer">
-                <video
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  className="w-full h-full object-cover"
+          {projects.map((project) => {
+            const isHovered = hoveredId === project.id;
+            return (
+              <div key={project.id} className="project-card flex flex-col gap-4">
+                <div
+                  onMouseEnter={() => setHoveredId(project.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl border border-neutral-900 cursor-pointer relative"
                 >
-                  <source src={project.videoSrc} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                  {/* Visual Placeholder / Static state when not hovered */}
+                  <div className={`absolute inset-0 bg-[#222222] flex items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+                    <span className="text-xs font-bold tracking-widest text-neutral-600 uppercase">
+                      Hover to View
+                    </span>
+                  </div>
+
+                  {/* High performance dynamic video loading */}
+                  {isHovered && (
+                    <video
+                      src={project.videoSrc}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover relative z-10"
+                    />
+                  )}
+                </div>
+                <div className="flex flex-col gap-1 mt-2">
+                  <span className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
+                    Work {project.number}
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
+                    {project.title}
+                  </h3>
+                </div>
               </div>
-              <div className="flex flex-col gap-1 mt-2">
-                <span className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
-                  Work {project.number}
-                </span>
-                <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
-                  {project.title}
-                </h3>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
