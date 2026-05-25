@@ -5,41 +5,50 @@ import React, { useEffect, useRef } from "react";
 interface Project {
   id: string;
   number: string;
-  category: string;
   title: string;
   videoSrc: string;
 }
 
 const projects: Project[] = [
   {
-    id: "cybernetic-bloom",
+    id: "re-awakening",
     number: "01",
-    category: "CHARACTER ANIMATION",
-    title: "Cybernetic Bloom",
-    videoSrc: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    title: "Re-Awakening",
+    videoSrc: "/portfolio/re-Awakening.mp4",
   },
   {
-    id: "kinetic-flow",
+    id: "project-3",
     number: "02",
-    category: "MOTION DESIGN",
-    title: "Kinetic Flow",
-    videoSrc: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    title: "Project III",
+    videoSrc: "/portfolio/Proj3.mp4",
   },
   {
-    id: "system-overload",
+    id: "acting-practice",
     number: "03",
-    category: "TECHNICAL DIRECTING",
-    title: "System Overload",
-    videoSrc: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    title: "Acting Practice",
+    videoSrc: "/portfolio/acting_practice2cl.mp4",
   },
   {
-    id: "atmospheric-void",
+    id: "dog-animation",
     number: "04",
-    category: "3D COMPOSITING",
-    title: "Atmospheric Void",
-    videoSrc: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    title: "Dog Animation",
+    videoSrc: "/portfolio/dog animation.mp4",
+  },
+  {
+    id: "kung-fu-kong",
+    number: "05",
+    title: "Kung Fu Kong",
+    videoSrc: "/portfolio/kung fu kong.mp4",
+  },
+  {
+    id: "new-dawn",
+    number: "06",
+    title: "The New Dawn",
+    videoSrc: "/portfolio/New New one.mp4",
   },
 ];
+
+const tools = ["OpenToonz", "ToonBoom", "Krita", "SketchBook Pro"];
 
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -82,10 +91,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-12 max-w-7xl mx-auto">
         <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter mb-6 uppercase">
-          Alex Rivers
+          Fortune Chidi
         </h1>
-        <p className="text-xl md:text-3xl font-medium text-neutral-400 mb-12 tracking-wide">
-          3D Character Animator
+        <p className="text-xl md:text-3xl font-medium text-neutral-400 mb-12 tracking-wide uppercase">
+          2D Animator
         </p>
         <button
           onClick={handleScrollToFooter}
@@ -97,6 +106,11 @@ export default function Home() {
 
       {/* Work Gallery */}
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-32">
+        <div className="mb-16 border-b border-neutral-800 pb-6">
+          <h2 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
+            Selected Work
+          </h2>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
           {projects.map((project) => (
             <div key={project.id} className="project-card flex flex-col gap-4">
@@ -115,7 +129,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-1 mt-2">
                 <span className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
-                  {project.number} / {project.category}
+                  Work {project.number}
                 </span>
                 <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">
                   {project.title}
@@ -138,8 +152,26 @@ export default function Home() {
               ABOUT
             </h2>
             <p className="text-lg md:text-xl text-neutral-400 max-w-xl leading-relaxed">
-              I am a motion designer specializing in high-fidelity 3D character animation and procedural motion systems. My work focuses on the intersection of technical precision and cinematic storytelling for global brands and studios.
+              I am a professional 2D animator specializing in high-fidelity character movement, hand-drawn expressions, and dynamic frame-by-frame actions. I focus on creating stories that bridge artistic depth and fluid motion.
             </p>
+            
+            {/* Tools of the trade */}
+            <div className="flex flex-col gap-3">
+              <h3 className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
+                Tools of the Trade
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {tools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="px-4 py-2 bg-[#111111] text-xs font-semibold text-[#E5E5E5] uppercase tracking-wider"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-4 mt-2">
               <a
                 className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300"
@@ -172,32 +204,25 @@ export default function Home() {
             <nav className="flex flex-col gap-4">
               <a
                 className="text-sm font-bold tracking-widest text-[#E5E5E5] hover:text-white transition-colors duration-300 uppercase hover:underline"
-                href="mailto:contact@alexrivers.com"
+                href="mailto:chidifortune39@gmail.com"
               >
                 EMAIL
               </a>
+              <span className="text-sm font-bold tracking-widest text-neutral-400 uppercase">
+                PHONE: 09093340752
+              </span>
               <a
                 className="text-sm font-bold tracking-widest text-[#E5E5E5] hover:text-white transition-colors duration-300 uppercase hover:underline"
-                href="#"
+                href="https://www.linkedin.com/in/chidi-fortune-95a5932b0?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 LINKEDIN
-              </a>
-              <a
-                className="text-sm font-bold tracking-widest text-[#E5E5E5] hover:text-white transition-colors duration-300 uppercase hover:underline"
-                href="#"
-              >
-                VIMEO
-              </a>
-              <a
-                className="text-sm font-bold tracking-widest text-[#E5E5E5] hover:text-white transition-colors duration-300 uppercase hover:underline"
-                href="#"
-              >
-                ARTSTATION
               </a>
             </nav>
             <div className="pt-8 border-t border-neutral-800 mt-4">
               <p className="text-[10px] text-neutral-500 tracking-[0.2em]">
-                © {new Date().getFullYear()} ANIMATOR PORTFOLIO. ALL RIGHTS RESERVED.
+                © {new Date().getFullYear()} FORTUNE CHIDI. ALL RIGHTS RESERVED.
               </p>
             </div>
           </div>

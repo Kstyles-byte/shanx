@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Rivers | 3D Character Animator Portfolio",
-  description: "High-performance animation portfolio showcasing professional 3D character animation and dynamic motion systems by Alex Rivers.",
+  title: "Fortune Chidi | 2D Animator Portfolio",
+  description: "High-performance animation portfolio showcasing professional 2D animation and fluid motion systems by Fortune Chidi.",
 };
 
 export default function RootLayout({
