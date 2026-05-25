@@ -79,6 +79,9 @@ const projects: Project[] = [
 
 const tools = ["OpenToonz", "ToonBoom", "Krita", "SketchBook Pro"];
 
+// REPLACE THE PLACEHOLDER URL BELOW WITH YOUR GOOGLE DOC LINK
+const RESUME_URL = "https://docs.google.com/document/d/17SiIOsdfQDutFefPhubxO3I_ss4K87mhhXKxLz4EzuY/edit?usp=sharing";
+
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -107,14 +110,6 @@ export default function Home() {
     };
   }, []);
 
-  const handleScrollToFooter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const footer = document.getElementById("contact");
-    if (footer) {
-      footer.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -127,6 +122,7 @@ export default function Home() {
 
   return (
     <main className="flex-1 bg-[#111111] text-[#E5E5E5] selection:bg-[#E5E5E5] selection:text-[#111111]">
+      {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-12 max-w-7xl mx-auto">
         <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter mb-6 uppercase">
           Fortune Chidi
@@ -134,14 +130,17 @@ export default function Home() {
         <p className="text-xl md:text-3xl font-medium text-neutral-400 mb-12 tracking-wide uppercase">
           2D Animator
         </p>
-        <button
-          onClick={handleScrollToFooter}
-          className="bg-white text-black px-10 py-5 font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer active:translate-y-0"
+        <a
+          href="https://wa.link/5ywk88"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-white text-black px-10 py-5 font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer active:translate-y-0 inline-block"
         >
           Contact Me
-        </button>
+        </a>
       </section>
 
+      {/* Work Gallery */}
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-32">
         <div className="mb-16 border-b border-neutral-800 pb-6 flex justify-between items-end">
           <h2 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
@@ -197,6 +196,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Lightbox Modal */}
       {activeProject && (
         <div
           onClick={() => setActiveProject(null)}
@@ -257,6 +257,7 @@ export default function Home() {
         </div>
       )}
 
+      {/* Footer / About & Contact */}
       <footer
         id="contact"
         className="bg-[#222222] text-[#E5E5E5] rounded-t-3xl py-24 px-6 md:px-12 border-t border-neutral-800"
@@ -289,7 +290,9 @@ export default function Home() {
             <div className="flex flex-wrap gap-4 mt-2">
               <a
                 className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300"
-                href="#"
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -305,7 +308,7 @@ export default function Home() {
                     d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12h7.5m-7.5 3H12m-9 5.25h18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.03 0 1.9.693 2.166 1.638m-7.3 8.39h.008v.008H10v-.008z"
                   />
                 </svg>
-                Download Resume (PDF)
+                VIEW RESUME (GOOGLE DOC)
               </a>
             </div>
           </div>
