@@ -104,6 +104,20 @@ export default function Home() {
     }
   };
 
+  // Hover play control helpers
+  const handleMouseEnter = (e: React.MouseEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    video.play().catch((err) => {
+      // Catch and ignore autoplay block exceptions
+      console.log("Playback interrupted:", err);
+    });
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    video.pause();
+  };
+
   return (
     <main className="flex-1 bg-[#111111] text-[#E5E5E5] selection:bg-[#E5E5E5] selection:text-[#111111]">
       {/* Hero Section */}
@@ -124,21 +138,25 @@ export default function Home() {
 
       {/* Work Gallery */}
       <section className="px-6 md:px-12 max-w-7xl mx-auto mb-32">
-        <div className="mb-16 border-b border-neutral-800 pb-6">
+        <div className="mb-16 border-b border-neutral-800 pb-6 flex justify-between items-end">
           <h2 className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
             Selected Works
           </h2>
+          <span className="text-[10px] text-neutral-500 uppercase tracking-widest hidden sm:inline">
+            Hover video to play
+          </span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
           {projects.map((project) => (
             <div key={project.id} className="project-card flex flex-col gap-4">
-              <div className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl border border-neutral-900">
+              <div className="project-video-container rounded-lg bg-[#222222] overflow-hidden aspect-video shadow-2xl border border-neutral-900 cursor-pointer">
                 <video
-                  autoPlay
                   loop
                   muted
                   playsInline
-                  preload="none"
+                  preload="metadata"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                   className="w-full h-full object-cover"
                 >
                   <source src={project.videoSrc} type="video/mp4" />
